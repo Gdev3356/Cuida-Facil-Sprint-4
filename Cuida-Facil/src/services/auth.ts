@@ -244,7 +244,6 @@ export const authService = {
   },
 
   criarNovaSenha: async (
-    paciente: TipoPaciente, 
     novaSenha: string
   ): Promise<{ sucesso: boolean; mensagem: string }> => {
     console.log('AVISO: Alteração de senha requer modificação do CEP');
