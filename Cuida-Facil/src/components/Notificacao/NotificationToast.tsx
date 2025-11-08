@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { X, Calendar, Clock, AlertCircle } from 'lucide-react';
+import { X, Calendar, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAccessibility } from '../../context/AcessibilityContext';
 
@@ -28,7 +28,7 @@ export default function NotificationToast({
   onClose,
   icon
 }: NotificationToastProps) {
-  const { leitorAtivo, lerTexto, pararLeitura } = useAccessibility();
+  const { leitorAtivo, lerTexto } = useAccessibility();
   
   // Lê a notificação automaticamente quando aparece (se leitor ativo)
   useEffect(() => {
