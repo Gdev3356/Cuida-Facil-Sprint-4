@@ -1,53 +1,90 @@
-import CardUnidade from './CardUnidade';
-import type { TipoCardUnidade } from '../../types/CardTypes';
+import { MapPin, Clock, Phone } from 'lucide-react';
+import type { TipoUnidade } from '../../types/TipoUnidade';
+import { useAccessibility } from '../../context/AcessibilityContext';
 
-const cardsData: TipoCardUnidade[] = [
-    {
-        id: 1,
-        cssClass: 'card-pinheiros',
-        titulo: 'HC Pinheiros',
-        endereco: 'Rua Dr. Ovídio Pires de Campos, 225 - Cerqueira César',
-        telefone: '(11) 2661-000',
-        horario: 'Seg-Sex: 7h-19h',
-        servicos: [
-            'Consultas Eletivas',
-            'Day Clinic'
-        ]
-    },
-    {
-        id: 2,
-        cssClass: 'card-central',
-        titulo: 'HC Central',
-        endereco: 'Av. Dr. Enéas Carvalho de Aguiar, 255 - Cerqueira César',
-        telefone: '(11) 2661-5000',
-        horario: '24h',
-        servicos: [
-            'Emergência',
-            'Consultas',
-            'Exames'
-        ]
-    },
-    {
-        id: 3,
-        cssClass: 'card-vila-mariana',
-        titulo: 'IMREA Vila Mariana',
-        endereco: 'Rua Domingo de Soto, 100 - Jardim Vila Mariana',
-        telefone: '(11) 5549-0111',
-        horario: 'Seg - Sex: 7h às 19h',
-        servicos: [
-            'Emergência',
-            'Consultas',
-            'Exames'
-        ]
-    }
-];
+type UnidadeCardProps = {
+  unidade: TipoUnidade;
+  imagemUrl?: string;
+  cssClass: string;
+  servicos: string[];
+};
 
-export default function CardsUnidadesContainer() {
-    return (
-        <>
-            {cardsData.map((card) => (
-                <CardUnidade key={card.id} card={card} />
+export default function UnidadeCard({ unidade, imagemUrl, cssClass, servicos }: UnidadeCardProps) {
+  const badgeType = unidade.horario?.includes('24h') ? 'emergencia' : 'consulta';
+
+  const { lerTexto, leitorAtivo, pararLeitura } = useAccessibility();
+
+  const handleLeituraCard = () => {
+    if (!leitorAtivo) return;
+
+    const tipoAtendimento = badgeType === 'emergencia' ? 'Atendimento 24 horas.' : 'Atendimento Eletivo.';
+    const servicosTexto = servicos.length > 0 ? `Serviços: ${servicos.join(', ')}.` : 'Sem serviços listados.';
+    
+    const textoResumo = `
+      Unidade: ${unidade.cdUnidade}. 
+      ${tipoAtendimento}
+      Endereço: ${unidade.endereco}.
+      ${unidade.telefone ? `Telefone: ${unidade.telefone}.` : ''}
+      ${unidade.horario ? `Horário: ${unidade.horario}.` : ''}
+      ${servicosTexto}
+    `;
+    
+    lerTexto(textoResumo);
+  };
+
+  return (
+    <div 
+      className={`unidade-card ${cssClass}`}
+      style={imagemUrl ? {
+        backgroundImage: `url(${imagemUrl})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      } : undefined}
+      tabIndex={0}
+      onMouseEnter={handleLeituraCard}
+      onFocus={handleLeituraCard}
+      onMouseLeave={pararLeitura}
+    >
+      <div className="unidade-card-overlay">
+        <div className="unidade-card-header">
+          <h2 className="unidade-card-title">{unidade.cdUnidade}</h2>
+          <span className={`unidade-badge ${badgeType}`}>
+            {badgeType === 'emergencia' ? '24H' : 'ELETIVA'}
+          </span>
+        </div>
+
+        <div className="unidade-card-body">
+          <div className="unidade-info">
+            <MapPin size={14} className="info-icon" />
+            <p className="info-text">{unidade.endereco}</p>
+          </div>
+
+          {unidade.telefone && (
+            <div className="unidade-info">
+              <Phone size={14} className="info-icon" />
+              <p className="info-text">{unidade.telefone}</p>
+            </div>
+          )}
+
+          {unidade.horario && (
+            <div className="unidade-info">
+              <Clock size={14} className="info-icon" />
+              <p className="info-text">{unidade.horario}</p>
+            </div>
+          )}
+        </div>
+
+        <div className="unidade-card-footer">
+          <div className="servicos-tags">
+            {servicos.map((servico, idx) => (
+              <span key={idx} className="servico-tag">
+                {servico}
+              </span>
             ))}
-        </>
-    );
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
