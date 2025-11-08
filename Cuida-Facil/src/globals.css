@@ -460,7 +460,7 @@
   }
   .card-unidades { 
     @apply bg-cover bg-center bg-no-repeat 
-           bg-[url('/assets/img/Unidades.jpeg')]; 
+           bg-[url('/assets/img/Unidades.webp')]; 
   }
   .card-minhas-consultas {
     @apply bg-cover bg-gradient-to-br from-[#34d6ff] to-[#009fdb]
@@ -579,29 +579,17 @@
   }
 
   /* Backgrounds específicos */
-  .card-hc-pinheiros { 
-    @apply bg-cover bg-center bg-no-repeat 
-           bg-[url('/assets/img/hcpinheiros.png')]; 
-  }
-  .card-ichc-central { 
-    @apply bg-cover bg-center bg-no-repeat 
-           bg-[url('/assets/img/hccentral.png')]; 
-  }
-  .card-imrea-vila-mariana { 
-    @apply bg-cover bg-center bg-no-repeat 
-           bg-[url('/assets/img/hcvilamariana.png')]; 
-  }
   .card-ortopedia { 
     @apply bg-cover bg-center bg-no-repeat 
            bg-[url('/assets/img/Ortopedia.jpeg')]; 
   }
   .card-cardiologia { 
     @apply bg-cover bg-center bg-no-repeat 
-           bg-[url('/assets/img/Cardiologia.jpeg')]; 
+           bg-[url('/assets/img/Cardiologia.webp')]; 
   }
   .card-pediatria { 
     @apply bg-cover bg-center bg-no-repeat 
-           bg-[url('/assets/img/Pediatria.jpg')]; 
+           bg-[url('/assets/img/Pediatria.webp')]; 
   }
 
   /* Fallback gradiente */
