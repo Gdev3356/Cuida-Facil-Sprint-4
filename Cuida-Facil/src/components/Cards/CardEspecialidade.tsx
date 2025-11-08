@@ -1,5 +1,5 @@
 import type { TipoEspecialidade } from '../../types/TipoEspecialidade';
-import { useAccessibility } from '../../context/AcessibilityContext';
+import { useAccessibility } from '../../context/AcessibilityContext'; // 1. IMPORTAR
 
 type EspecialidadeCardProps = {
   especialidade: TipoEspecialidade;

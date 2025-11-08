@@ -1,6 +1,6 @@
 import { MapPin, Clock, Phone } from 'lucide-react';
 import type { TipoUnidade } from '../../types/TipoUnidade';
-import { useAccessibility } from '../../context/AcessibilityContext';
+import { useAccessibility } from '../../context/AcessibilityContext'; // 1. IMPORTAR
 
 type UnidadeCardProps = {
   unidade: TipoUnidade;
